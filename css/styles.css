@@ -1,0 +1,59 @@
+/* header */
+.header {
+  height: 250px;
+  background-image: url("../images/bg-resize.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  z-index: 10;
+}
+
+.header::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--text-color);
+  z-index: -1;
+  opacity: 0.7;
+}
+
+.header .container {
+  justify-content: space-between;
+  height: 100%;
+}
+
+.header__logo {
+  font-size: 3rem;
+  color: var(--white);
+  line-height: 1;
+}
+
+.header__logo i {
+  color: var(--cta);
+}
+
+/* header mq */
+@media screen and (max-width: 500px) {
+  .header__logo {
+    /* font-size: 3rem; */
+  }
+  .header .btn--header {
+    align-self: flex-start;
+  }
+
+  .header .btn--header span {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 978px) {
+  .header__logo,
+  .btn--header {
+    position: relative;
+    top: -2rem;
+  }
+}

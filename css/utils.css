@@ -1,0 +1,20 @@
+.center-flex {
+  display: flex;
+  align-items: center;
+}
+
+.btn--header,
+.btn--header:link,
+.btn--header:visited {
+  padding: 0.5em 0.8em;
+  font-size: 1.3rem;
+  border-radius: 10rem;
+  border: 1px solid var(--white);
+  color: var(--white);
+}
+
+.btn--header:hover,
+.btn--header:active,
+.btn--header:focus {
+  background-color: var(--text-color);
+}
