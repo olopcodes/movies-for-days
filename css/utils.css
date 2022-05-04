@@ -16,5 +16,24 @@
 .btn--header:hover,
 .btn--header:active,
 .btn--header:focus {
+  background-color: var(--cta);
+  color: var(--text-color);
+  border-color: var(--cta);
+}
+
+.btn--search {
+  width: 20%;
+  font-size: 1.3rem;
+  font-weight: 700;
+  background-color: var(--cta);
+  border: 0;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  cursor: pointer;
+}
+
+.btn--search:hover,
+.btn--search:focus {
   background-color: var(--text-color);
+  color: var(--white);
 }
