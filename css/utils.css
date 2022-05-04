@@ -21,6 +21,13 @@
   border-color: var(--cta);
 }
 
+@media screen and (min-width: 978px) {
+  .btn--header {
+    font-size: 1.5rem !important;
+    font-weight: 700;
+  }
+}
+
 .btn--search {
   width: 20%;
   font-size: 1.3rem;
