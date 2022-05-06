@@ -72,9 +72,8 @@ function HandleMovieInfo(dataObj) {
 
   // loop over watchlist array and check if movie is in there
   this.isMovieInWatchlist = function () {
-    
-      //  '<i class="bx bxs-plus-circle"></i> add to watchlist'
-      //  `<i class='bx bxs-minus-circle'></i> remove`;
+    //  '<i class="bx bxs-plus-circle"></i> add to watchlist'
+    //  `<i class='bx bxs-minus-circle'></i> remove`;
   };
 
   this.getMovieHtml = function () {
@@ -98,7 +97,7 @@ function HandleMovieInfo(dataObj) {
         <p>${Runtime} min</p>
         <p>${Genre}</p>
         <button class="btn--watchlist">
-          ${this.}
+          
         </button>
       </div>
       <p class="movie-results__plot">
