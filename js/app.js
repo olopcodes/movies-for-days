@@ -2,8 +2,8 @@ import movieKey from "./key.js";
 import Movie from "./Movie.js";
 
 const movieIDs = [];
-const movieInfoArr = [];
-const movieWatchList = [];
+const moviesResultsArr = [];
+const movieWatchListArr = [];
 const movieForm = document.querySelector("#movie-form");
 const movieSearchInput = movieForm.querySelector("#movie-search");
 
@@ -42,7 +42,7 @@ async function getMovieInfoWithID(keyObj, movieIDs) {
       `http://www.omdbapi.com/?apikey=${keyObj.key}&i=${id}`
     );
     const data = await res.json();
-    handleMovieData(data);
+    storeMovieResults(data);
   }
 }
 
@@ -51,18 +51,63 @@ function clearMovieInput() {
   movieSearchInput.value = "";
 }
 
-// get the movie data and add to array
-function handleMovieData(data) {
-  const { Title, Poster, Runtime, Genre, imdbRating, Year, Plot } = data;
+// store movie in an arr to be render
+function storeMovieResults(data) {
+  const { imdbID, Title, Poster, Runtime, Genre, imdbRating, Plot } = data;
   const newMovie = new Movie(
+    imdbID,
     Title,
     Poster,
     Runtime,
     Genre,
     imdbRating,
-    Year,
     Plot
   );
-  movieInfoArr.push(newMovie);
-  //   console.log(movieInfoArr);
+  moviesResultsArr.push(newMovie);
+  console.log(moviesResultsArr);
 }
+
+function HandleMovieInfo(dataObj) {
+  Object.assign(this, dataObj);
+
+  // loop over watchlist array and check if movie is in there
+  this.isMovieInWatchlist = function () {
+    
+      //  '<i class="bx bxs-plus-circle"></i> add to watchlist'
+      //  `<i class='bx bxs-minus-circle'></i> remove`;
+  };
+
+  this.getMovieHtml = function () {
+    const { imdbID, Title, Poster, Runtime, Genre, imdbRating, Plot } = this;
+    return `
+    <li class="movie-results__movie" data-id="${imdbID}">
+    <img
+      class="movie-results__img"
+      src="${Poster}"
+      alt=""
+    />
+    <div class="movie-results__details">
+      <h3 class="movie-results__title">
+        ${Title}
+        <span class="movie-results__icon"
+          ><i class="bx bxs-star"></i
+        ></span>
+        <span class="movie-results__rating">${imdbRating}</span>
+      </h3>
+      <div class="movie-results__info">
+        <p>${Runtime} min</p>
+        <p>${Genre}</p>
+        <button class="btn--watchlist">
+          ${this.}
+        </button>
+      </div>
+      <p class="movie-results__plot">
+       ${Plot}
+      </p>
+    </div>
+  </li>
+    `;
+  };
+}
+
+function render() {}

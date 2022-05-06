@@ -107,7 +107,7 @@
   }
 }
 
-/* movies list */
+/* movies results list */
 .movie-results {
   height: 100vh;
   justify-content: center;
@@ -118,8 +118,8 @@
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  margin-top: 8em;
   height: 100%;
+  margin-top: 4em;
 }
 
 .movies-results__empty-box p {
@@ -138,4 +138,111 @@
   font-size: 2.5rem;
   line-height: 1.2;
   text-align: center;
+}
+
+.movie-results__list {
+  /* border: 1px solid; */
+  margin-top: 4em;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  gap: 2em;
+}
+
+.movie-results__movie {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  padding-bottom: 2em;
+}
+
+.movie-results__movie:not(:last-of-type) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.movie-results__img {
+  border-radius: 3px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.movie-results__main-details {
+}
+
+.movie-results__title {
+  font-size: 2rem;
+  text-transform: capitalize;
+  line-height: 1.2;
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.movie-results__title-details {
+  display: flex;
+  font-size: 1.5rem;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.movie-results__title-details i {
+  display: inline-block;
+  color: var(--cta);
+}
+
+.movie-results__rating {
+}
+
+.movie-results__info {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 500;
+  justify-content: space-between;
+  margin-bottom: 1.5em;
+}
+
+.movie-results__plot {
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+  .movie-results__img {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 501px) {
+  .movie-results__img {
+    width: 33%;
+    height: 225px;
+  }
+}
+
+@media screen and (min-width: 978px) {
+  .movie-results__movie {
+    gap: 4em;
+  }
+
+  .movie-results__title {
+    font-size: 2.5rem;
+  }
+
+  .movie-results__title-details {
+    font-size: 2rem;
+  }
+
+  .movie-results__img {
+    width: 25%;
+    height: 275px;
+  }
+
+  .movie-results__info,
+  .movie-results__plot {
+    font-size: 1.3rem;
+  }
+
+  .movie-results__info {
+    width: 350px;
+  }
 }
