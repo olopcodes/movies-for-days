@@ -153,7 +153,7 @@
   display: flex;
   align-items: center;
   gap: 2em;
-  padding-bottom: 2em;
+  padding: 2em 0 4em;
 }
 
 .movie-results__movie:not(:last-of-type) {
@@ -185,7 +185,7 @@
   gap: 0.2em;
 }
 
-.movie-results__title-details i {
+.movie-results__icon {
   display: inline-block;
   color: var(--cta);
 }
@@ -225,11 +225,11 @@
   }
 
   .movie-results__title {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
 
   .movie-results__title-details {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   .movie-results__img {
@@ -239,10 +239,10 @@
 
   .movie-results__info,
   .movie-results__plot {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 
   .movie-results__info {
-    width: 350px;
+    width: 425px;
   }
 }
