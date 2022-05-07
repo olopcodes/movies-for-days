@@ -1,18 +1,14 @@
 import movieKey from "./key.js";
 import Movie from "./Movie.js";
 import movieResultsHtml from "./html.js";
-import {
-  handleMovieToWatchList,
-  addToWatchlist,
-  removeFromWatchlist,
-} from "./watchlist.js";
+import movieWatchListHandler from "./watchlist.js";
 
 const movieIDs = [];
 const moviesResultsArr = [];
 let movieWatchListArr = [];
 const movieForm = document.querySelector("#movie-form");
 const movieSearchInput = movieForm.querySelector("#movie-search");
-const movieResultEl = document.querySelector(".movie-results__list");
+const movieListEl = document.querySelector(".movie-results__list");
 
 movieForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -24,7 +20,8 @@ movieForm.addEventListener("submit", async (e) => {
       html += movieResultsHtml(movie);
     }
     renderMovies(html);
-    handleMovieToWatchList(moviesResultsArr, movieWatchListArr, movieResultEl);
+    movieWatchListHandler(movieListEl, moviesResultsArr, movieWatchListArr);
+    // handleMovieToWatchList(moviesResultsArr, movieWatchListArr, movieResultEl);
   } else {
     console.log("Enter a movie title");
   }
@@ -80,5 +77,5 @@ function storeMovieResults(data) {
 }
 
 function renderMovies(html) {
-  movieResultEl.innerHTML = html;
+  movieListEl.innerHTML = html;
 }

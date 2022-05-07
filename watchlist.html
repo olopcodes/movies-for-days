@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Movie Search | A database for movies</title>
+    <title>Movie Watchlist | Movies You Want to See</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
@@ -14,14 +14,14 @@
     <link rel="stylesheet" href="css/utils.css" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body>
+  <body id="watchlist">
     <header class="header">
       <div class="container center-flex">
         <h1 class="header__logo center-flex">
-          Movies For days<i class="bx bx-camera-movie"></i>
+          My WatchList<i class="bx bx-camera-movie"></i>
         </h1>
-        <a class="btn--header center-flex" href="watchlist.html"
-          ><span>My list</span> <i class="bx bxs-folder-plus"></i
+        <a class="btn--header center-flex" href="index.html"
+          ><span>search movies </span><i class="bx bx-movie"></i
         ></a>
       </div>
     </header>
@@ -40,9 +40,9 @@
       <section class="movie-results container-sm">
         <ul class="movie-results__list container center-flex">
           <div class="movies-results__empty-box center-flex">
-            <p class="center-flex"><i class="bx bx-movie-play"></i></p>
+            <p class="center-flex"><i class="bx bxs-folder-plus"></i></p>
             <h2 class="movies-results__title">
-              Search movies to add to your watchlist
+              Go to search movies to add movies to your watchlist
             </h2>
           </div>
         </ul>

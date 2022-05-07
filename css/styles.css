@@ -37,6 +37,10 @@
   color: var(--cta);
 }
 
+.header .btn--header span {
+  margin-right: 0.3em;
+}
+
 /* header mq */
 @media screen and (max-width: 500px) {
   .header {
@@ -166,9 +170,6 @@
   object-position: center;
 }
 
-.movie-results__main-details {
-}
-
 .movie-results__title {
   font-size: 2rem;
   text-transform: capitalize;
@@ -239,7 +240,7 @@
 
   .movie-results__info,
   .movie-results__plot {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
   }
 
   .movie-results__info {

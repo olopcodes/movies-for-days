@@ -1,7 +1,7 @@
 function movieResultsHtml(movieObj) {
   const { imdbID, Title, Poster, Runtime, Genre, imdbRating, Plot } = movieObj;
   return `
-      <li class="movie-results__movie" data-in-watchlist="0" data-id="${imdbID}">
+      <li class="movie-results__movie" data-id="${imdbID}">
       <img
         class="movie-results__img"
         src="${Poster}"
