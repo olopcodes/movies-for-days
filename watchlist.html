@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/general.css" />
     <link rel="stylesheet" href="css/utils.css" />
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/watchlist.css" />
   </head>
   <body id="watchlist">
     <header class="header">
@@ -39,15 +40,81 @@
       </form>
       <section class="movie-results container-sm">
         <ul class="movie-results__list container center-flex">
-          <div class="movies-results__empty-box center-flex">
+          <!-- <div class="movies-results__empty-box center-flex">
             <p class="center-flex"><i class="bx bxs-folder-plus"></i></p>
             <h2 class="movies-results__title">
               Go to search movies to add movies to your watchlist
-            </h2>
-          </div>
+            </h2> -->
+
+          <!-- </div> -->
+
+          <li class="movie-results__movie" data-id="${imdbID}">
+            <img
+              class="movie-results__img"
+              src="https://placeimg.com/640/480/any"
+              alt=""
+            />
+            <div class="movie-results__details">
+              <h3 class="movie-results__title">Awesome movie title here</h3>
+
+              <button class="btn--watchlist">
+                <i class="bx bxs-minus-circle"></i> remove
+              </button>
+            </div>
+          </li>
+
+          <li class="movie-results__movie" data-id="${imdbID}">
+            <img
+              class="movie-results__img"
+              src="https://placeimg.com/640/480/any"
+              alt=""
+            />
+            <div class="movie-results__details">
+              <h3 class="movie-results__title">Awesome movie title here</h3>
+
+              <button class="btn--watchlist">
+                <i class="bx bxs-minus-circle"></i> remove
+              </button>
+            </div>
+          </li>
+
+          <li class="movie-results__movie" data-id="${imdbID}">
+            <img
+              class="movie-results__img"
+              src="https://placeimg.com/640/480/any"
+              alt=""
+            />
+            <div class="movie-results__details">
+              <h3 class="movie-results__title">Awesome movie title here</h3>
+
+              <button class="btn--watchlist">
+                <i class="bx bxs-minus-circle"></i> remove
+              </button>
+            </div>
+          </li>
+
+          <li class="movie-results__movie" data-id="${imdbID}">
+            <img
+              class="movie-results__img"
+              src="https://placeimg.com/640/480/any"
+              alt=""
+            />
+            <div class="movie-results__details">
+              <h3 class="movie-results__title">Awesome movie title here</h3>
+
+              <button class="btn--watchlist">
+                <i class="bx bxs-minus-circle"></i> remove
+              </button>
+            </div>
+          </li>
         </ul>
       </section>
     </main>
+    <footer class="footer center-flex">
+      <p class="header__logo center-flex">
+        &copy; My WatchList<i class="bx bx-camera-movie"></i> 2022
+      </p>
+    </footer>
     <script src="js/app.js" type="module"></script>
   </body>
 </html>
