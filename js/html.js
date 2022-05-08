@@ -30,4 +30,23 @@ function movieResultsHtml(movieObj) {
       `;
 }
 
+function watchlistHTML(watchlistObj) {
+  return `
+  <li class="movie-results__movie" data-id="${imdbID}">
+  <img
+    class="movie-results__img"
+    src="https://placeimg.com/640/480/any"
+    alt=""
+  />
+  <div class="movie-results__details">
+    <h3 class="movie-results__title">Awesome movie title here</h3>
+
+    <button class="btn--watchlist">
+      <i class="bx bxs-minus-circle"></i> remove
+    </button>
+  </div>
+</li>
+  `;
+}
+
 export default movieResultsHtml;

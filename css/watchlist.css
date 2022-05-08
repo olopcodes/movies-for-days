@@ -69,8 +69,8 @@
     width: 31%;
   }
 
-  #watchlist .movie-results__movie:not(:last-of-type) {
-    margin-bottom: 4em;
+  #watchlist .movie-results__movie {
+    margin-bottom: 2em;
   }
 
   #watchlist .movie-results__title {
