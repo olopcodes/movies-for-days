@@ -1,27 +1,28 @@
 import movieKey from "./key.js";
 import Movie from "./Movie.js";
-import movieResultsHtml from "./html.js";
+import { movieResultsHtml, watchlistHTML } from "./html.js";
 import movieWatchListHandler from "./watchlist.js";
 
-const movieIDs = [];
-const moviesResultsArr = [];
+let movieIDs = [];
+let moviesResultsArr = [];
 let movieWatchListArr = [];
+let searchHTML = "";
+let watchHTML = "";
 const movieForm = document.querySelector("#movie-form");
 const movieSearchInput = movieForm.querySelector("#movie-search");
 const movieListEl = document.querySelector(".movie-results__list");
+const watchListEl = document.querySelector("#watchlist .movie-results__list");
 
+// eventlistner for the search form
 movieForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (movieSearchInput.value) {
     await searchMovieDB(movieKey, movieSearchInput.value);
     await getMovieInfoWithID(movieKey, movieIDs);
-    let html = "";
-    for (let movie of moviesResultsArr) {
-      html += movieResultsHtml(movie);
-    }
-    renderMovies(html);
+    renderSearchMovies(searchHTML);
+    // let html = "";
+
     movieWatchListHandler(movieListEl, moviesResultsArr, movieWatchListArr);
-    // handleMovieToWatchList(moviesResultsArr, movieWatchListArr, movieResultEl);
   } else {
     console.log("Enter a movie title");
   }
@@ -35,24 +36,27 @@ async function searchMovieDB(keyObj, searchTitle) {
     `http://www.omdbapi.com/?apikey=${keyObj.key}&s=${searchTitle}`
   );
   const data = await res.json();
-  addMovieIDtoArray(data);
-}
 
-// adding movie id to array
-function addMovieIDtoArray(data) {
-  for (let item of data.Search) {
-    movieIDs.push(item.imdbID);
-  }
+  addMovieIDtoArray(data);
 }
 
 // using movie id to get more info about movie
 async function getMovieInfoWithID(keyObj, movieIDs) {
+  moviesResultsArr = [];
   for (let id of movieIDs) {
     const res = await fetch(
       `http://www.omdbapi.com/?apikey=${keyObj.key}&i=${id}`
     );
     const data = await res.json();
     storeMovieResults(data);
+  }
+}
+
+// adding movie id to array
+function addMovieIDtoArray(data) {
+  movieIDs = [];
+  for (let item of data.Search) {
+    movieIDs.push(item.imdbID);
   }
 }
 
@@ -78,4 +82,11 @@ function storeMovieResults(data) {
 
 function renderMovies(html) {
   movieListEl.innerHTML = html;
+}
+
+function renderSearchMovies(html) {
+  for (let movie of moviesResultsArr) {
+    html += movieResultsHtml(movie);
+  }
+  renderMovies(html);
 }

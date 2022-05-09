@@ -1,10 +1,21 @@
-function movieWatchListHandler(el, searchArr, watchListArr) {
-  el.addEventListener("click", (e) => {
+import { watchlistHTML } from "./html.js";
+
+function movieWatchListHandler(searchEl, searchArr, watchListEl, watchListArr) {
+  searchEl.addEventListener("click", (e) => {
     if (e.target.classList.contains("btn--watchlist")) {
       const id = e.target.closest("li").dataset.id;
       const index = watchListArr.findIndex((movie) => movie.imdbID === id);
+
       if (index === -1) {
-        const newMovie = searchArr.find((movie) => movie.imdbID === id);
+        const newMovie = searchArr.find((movie) => {
+          if (movie.imdbID === id) {
+            return {
+              imdbID: movie.imdbID,
+              Poster: movie.Poster,
+              Title: movie.Title,
+            };
+          }
+        });
         watchListArr.push(newMovie);
 
         e.target
@@ -23,6 +34,17 @@ function movieWatchListHandler(el, searchArr, watchListArr) {
       }
     }
   });
+}
+
+function renderWatchLsit(watchListEl, watchListArr) {
+  let html = ``;
+  if (watchListArr.length >= 1) {
+    for (let movie of watchListArr) {
+      html += watchlistHTML(movie);
+    }
+  }
+
+  watchListEl.innerHTML = html;
 }
 
 export default movieWatchListHandler;

@@ -1,4 +1,4 @@
-function movieResultsHtml(movieObj) {
+export function movieResultsHtml(movieObj) {
   const { imdbID, Title, Poster, Runtime, Genre, imdbRating, Plot } = movieObj;
   return `
       <li class="movie-results__movie" data-id="${imdbID}">
@@ -30,16 +30,17 @@ function movieResultsHtml(movieObj) {
       `;
 }
 
-function watchlistHTML(watchlistObj) {
+export function watchlistHTML(watchlistObj) {
+  const { imdbID, Poster, Title } = watchlistObj;
   return `
   <li class="movie-results__movie" data-id="${imdbID}">
   <img
     class="movie-results__img"
-    src="https://placeimg.com/640/480/any"
+    src="${Poster}"
     alt=""
   />
   <div class="movie-results__details">
-    <h3 class="movie-results__title">Awesome movie title here</h3>
+    <h3 class="movie-results__title">${Title}</h3>
 
     <button class="btn--watchlist">
       <i class="bx bxs-minus-circle"></i> remove
@@ -49,4 +50,4 @@ function watchlistHTML(watchlistObj) {
   `;
 }
 
-export default movieResultsHtml;
+// export default { movieResultsHtml, watchlistHTML };
