@@ -1,6 +1,6 @@
 import { watchlistHTML } from "./html.js";
 
-function movieWatchListHandler(searchEl, searchArr, watchListEl, watchListArr) {
+function movieWatchListHandler(searchEl, searchArr, watchListArr) {
   searchEl.addEventListener("click", (e) => {
     if (e.target.classList.contains("btn--watchlist")) {
       const id = e.target.closest("li").dataset.id;

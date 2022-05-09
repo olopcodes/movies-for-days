@@ -19,7 +19,12 @@ movieForm.addEventListener("submit", async (e) => {
   if (movieSearchInput.value) {
     await searchMovieDB(movieKey, movieSearchInput.value);
     await getMovieInfoWithID(movieKey, movieIDs);
-    renderSearchMovies(searchHTML);
+    renderSearchMovies(
+      movieListEl,
+      searchHTML,
+      moviesResultsArr,
+      movieResultsHtml
+    );
     // let html = "";
 
     movieWatchListHandler(movieListEl, moviesResultsArr, movieWatchListArr);
@@ -80,13 +85,9 @@ function storeMovieResults(data) {
   moviesResultsArr.push(newMovie);
 }
 
-function renderMovies(html) {
-  movieListEl.innerHTML = html;
-}
-
-function renderSearchMovies(html) {
-  for (let movie of moviesResultsArr) {
-    html += movieResultsHtml(movie);
+function renderSearchMovies(el, htmlType, arr, func) {
+  for (let movie of arr) {
+    htmlType += func(movie);
   }
-  renderMovies(html);
+  el.innerHTML = htmlType;
 }
