@@ -1,17 +1,22 @@
 import movieKey from "./key.js";
 import Movie from "./Movie.js";
 import { movieResultsHtml, watchlistHTML } from "./html.js";
-import movieWatchListHandler from "./watchlist.js";
+import movieWatchListHandler from "./watchlistHandler.js";
+
+let movieWatchListArr = [];
+movieWatchListArr.push({ age: 32 });
+localStorage.setItem("watchList", JSON.stringify(movieWatchListArr));
+const savedWatchListArr = JSON.parse(localStorage.getItem("watchList"));
+console.log(savedWatchListArr, "saved");
 
 let movieIDs = [];
 let moviesResultsArr = [];
-let movieWatchListArr = [];
 let searchHTML = "";
 let watchHTML = "";
 const movieForm = document.querySelector("#movie-form");
 const movieSearchInput = movieForm.querySelector("#movie-search");
 const movieListEl = document.querySelector(".movie-results__list");
-const watchListEl = document.querySelector("#watchlist .movie-results__list");
+const watchlistBtn = document.querySelector(".btn--header");
 
 // eventlistner for the search form
 movieForm.addEventListener("submit", async (e) => {
@@ -19,21 +24,18 @@ movieForm.addEventListener("submit", async (e) => {
   if (movieSearchInput.value) {
     await searchMovieDB(movieKey, movieSearchInput.value);
     await getMovieInfoWithID(movieKey, movieIDs);
-    renderSearchMovies(
-      movieListEl,
-      searchHTML,
-      moviesResultsArr,
-      movieResultsHtml
-    );
-    // let html = "";
+    renderMovies(movieListEl, searchHTML, moviesResultsArr, movieResultsHtml);
 
     movieWatchListHandler(movieListEl, moviesResultsArr, movieWatchListArr);
+    renderMovies(watchListEl, watchHTML, movieWatchListArr, watchHTML);
   } else {
     console.log("Enter a movie title");
   }
 
   clearMovieInput();
 });
+
+watchlistBtn.addEventListener("click", async (e) => {});
 
 // search movie db by input value
 async function searchMovieDB(keyObj, searchTitle) {
@@ -85,7 +87,7 @@ function storeMovieResults(data) {
   moviesResultsArr.push(newMovie);
 }
 
-function renderSearchMovies(el, htmlType, arr, func) {
+function renderMovies(el, htmlType, arr, func) {
   for (let movie of arr) {
     htmlType += func(movie);
   }
