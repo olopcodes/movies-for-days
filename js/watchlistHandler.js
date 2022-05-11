@@ -1,50 +1,60 @@
-import { watchlistHTML } from "./html.js";
+import {
+  saveWatchListToLocalStorage,
+  getWatchListFromLocalStorage,
+} from "./app.js";
 
-function movieWatchListHandler(searchEl, searchArr, watchListArr) {
+function movieWatchListHandler(searchEl, searchArr) {
   searchEl.addEventListener("click", (e) => {
     if (e.target.classList.contains("btn--watchlist")) {
       const id = e.target.closest("li").dataset.id;
-      const index = watchListArr.findIndex((movie) => movie.imdbID === id);
+      const myWatchList = getWatchListFromLocalStorage();
+      if (myWatchList === null) addMovieToWatchList(e, id, searchArr);
+      const index = myWatchList.findIndex((movie) => movie.imdbID === id);
 
       if (index === -1) {
-        const newMovie = searchArr.find((movie) => {
-          if (movie.imdbID === id) {
-            return {
-              imdbID: movie.imdbID,
-              Poster: movie.Poster,
-              Title: movie.Title,
-            };
-          }
-        });
-        watchListArr.push(newMovie);
-
-        e.target
-          .closest("li")
-          .querySelector(
-            ".btn--watchlist"
-          ).innerHTML = `<i class='bx bxs-minus-circle'></i> remove`;
+        addMovieToWatchList(e, id, searchArr, myWatchList);
       } else {
-        watchListArr = watchListArr.filter((movie) => movie.imdbID !== id);
-        e.target
-          .closest("li")
-          .querySelector(
-            ".btn--watchlist"
-          ).innerHTML = `<i class="bx bxs-plus-circle"></i> add to watchlist`;
-        console.log(watchListArr, "removed a movie");
+        const watchList = getWatchListFromLocalStorage();
+        removeMovieFromWatchList(watchList, id);
+        updateRemovedMovieEl(e);
       }
     }
   });
 }
 
-function renderWatchLsit(watchListEl, watchListArr) {
-  let html = ``;
-  if (watchListArr.length >= 1) {
-    for (let movie of watchListArr) {
-      html += watchlistHTML(movie);
-    }
-  }
+function updateRemovedMovieEl(event) {
+  event.target
+    .closest("li")
+    .querySelector(
+      ".btn--watchlist"
+    ).innerHTML = `<i class="bx bxs-plus-circle"></i> add to watchlist`;
+}
 
-  watchListEl.innerHTML = html;
+function updateAddedMovieEl(event) {
+  event.target
+    .closest("li")
+    .querySelector(
+      ".btn--watchlist"
+    ).innerHTML = `<i class='bx bxs-minus-circle'></i> remove`;
+}
+
+function removeMovieFromWatchList(arr, id) {
+  arr = arr.filter((movie) => movie.imdbID !== id);
+}
+
+function addMovieToWatchList(e, id, searchArr, watchList) {
+  const newMovie = searchArr.find((movie) => {
+    if (movie.imdbID === id) {
+      return {
+        imdbID: movie.imdbID,
+        Poster: movie.Poster,
+        Title: movie.Title,
+      };
+    }
+  });
+  watchList.push(newMovie);
+  saveWatchListToLocalStorage(myWatchList);
+  updateAddedMovieEl(e);
 }
 
 export default movieWatchListHandler;

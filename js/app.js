@@ -4,15 +4,14 @@ import { movieResultsHtml, watchlistHTML } from "./html.js";
 import movieWatchListHandler from "./watchlistHandler.js";
 
 let movieWatchListArr = [];
-movieWatchListArr.push({ age: 32 });
-localStorage.setItem("watchList", JSON.stringify(movieWatchListArr));
-const savedWatchListArr = JSON.parse(localStorage.getItem("watchList"));
-console.log(savedWatchListArr, "saved");
+
+// read
+
+// console.log(savedWatchListArr, "saved");
 
 let movieIDs = [];
 let moviesResultsArr = [];
 let searchHTML = "";
-let watchHTML = "";
 const movieForm = document.querySelector("#movie-form");
 const movieSearchInput = movieForm.querySelector("#movie-search");
 const movieListEl = document.querySelector(".movie-results__list");
@@ -27,7 +26,7 @@ movieForm.addEventListener("submit", async (e) => {
     renderMovies(movieListEl, searchHTML, moviesResultsArr, movieResultsHtml);
 
     movieWatchListHandler(movieListEl, moviesResultsArr, movieWatchListArr);
-    renderMovies(watchListEl, watchHTML, movieWatchListArr, watchHTML);
+    // renderMovies(watchListEl, watchHTML, movieWatchListArr, watchHTML);
   } else {
     console.log("Enter a movie title");
   }
@@ -61,7 +60,7 @@ async function getMovieInfoWithID(keyObj, movieIDs) {
 
 // adding movie id to array
 function addMovieIDtoArray(data) {
-  movieIDs = [];
+  // movieIDs = [];
   for (let item of data.Search) {
     movieIDs.push(item.imdbID);
   }
@@ -87,9 +86,20 @@ function storeMovieResults(data) {
   moviesResultsArr.push(newMovie);
 }
 
-function renderMovies(el, htmlType, arr, func) {
+export function renderMovies(el, htmlType, arr, func) {
   for (let movie of arr) {
     htmlType += func(movie);
   }
   el.innerHTML = htmlType;
 }
+
+export function saveWatchListToLocalStorage(arr) {
+  // save
+  localStorage.setItem("watchList", JSON.stringify(arr));
+}
+
+export function getWatchListFromLocalStorage() {
+  return JSON.parse(localStorage.getItem("watchList"));
+}
+
+// export default renderMovies;
