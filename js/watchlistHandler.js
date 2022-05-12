@@ -1,60 +1,40 @@
 import {
   saveWatchListToLocalStorage,
   getWatchListFromLocalStorage,
+  updateWatchListButtonEl,
 } from "./app.js";
-
-function movieWatchListHandler(searchEl, searchArr) {
+function movieWatchListHandler(searchEl, moviesSearchedArr, myWatchList) {
   searchEl.addEventListener("click", (e) => {
     if (e.target.classList.contains("btn--watchlist")) {
-      const id = e.target.closest("li").dataset.id;
-      const myWatchList = getWatchListFromLocalStorage();
-      if (myWatchList === null) addMovieToWatchList(e, id, searchArr);
-      const index = myWatchList.findIndex((movie) => movie.imdbID === id);
+      const moviesInWatchList = getWatchListFromLocalStorage();
+      const movieId = e.target.closest("li").dataset.id;
+      const isMovieInWatchList = moviesInWatchList.findIndex(
+        (movie) => movie.imdbID === movieId
+      );
 
-      if (index === -1) {
-        addMovieToWatchList(e, id, searchArr, myWatchList);
+      if (isMovieInWatchList === -1) {
+        addMovieToWatchList(moviesSearchedArr, movieId, moviesInWatchList);
+        updateWatchListButtonEl(e, "add");
       } else {
-        const watchList = getWatchListFromLocalStorage();
-        removeMovieFromWatchList(watchList, id);
-        updateRemovedMovieEl(e);
+        const myWatchList = getWatchListFromLocalStorage();
+        saveWatchListToLocalStorage(
+          myWatchList.filter((movie) => movie.imdbID !== movieId)
+        );
+        updateWatchListButtonEl(e, "rem");
       }
     }
   });
 }
 
-function updateRemovedMovieEl(event) {
-  event.target
-    .closest("li")
-    .querySelector(
-      ".btn--watchlist"
-    ).innerHTML = `<i class="bx bxs-plus-circle"></i> add to watchlist`;
-}
+function addMovieToWatchList(arr, id, watchList) {
+  const movieInfo = arr.find((movie) => movie.imdbID === id);
 
-function updateAddedMovieEl(event) {
-  event.target
-    .closest("li")
-    .querySelector(
-      ".btn--watchlist"
-    ).innerHTML = `<i class='bx bxs-minus-circle'></i> remove`;
-}
-
-function removeMovieFromWatchList(arr, id) {
-  arr = arr.filter((movie) => movie.imdbID !== id);
-}
-
-function addMovieToWatchList(e, id, searchArr, watchList) {
-  const newMovie = searchArr.find((movie) => {
-    if (movie.imdbID === id) {
-      return {
-        imdbID: movie.imdbID,
-        Poster: movie.Poster,
-        Title: movie.Title,
-      };
-    }
+  watchList.push({
+    Poster: movieInfo.Poster,
+    imdbID: movieInfo.imdbID,
+    Title: movieInfo.Title,
   });
-  watchList.push(newMovie);
-  saveWatchListToLocalStorage(myWatchList);
-  updateAddedMovieEl(e);
+  saveWatchListToLocalStorage(watchList);
 }
 
 export default movieWatchListHandler;

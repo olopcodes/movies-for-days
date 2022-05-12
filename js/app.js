@@ -3,12 +3,7 @@ import Movie from "./Movie.js";
 import { movieResultsHtml, watchlistHTML } from "./html.js";
 import movieWatchListHandler from "./watchlistHandler.js";
 
-let movieWatchListArr = [];
-
-// read
-
-// console.log(savedWatchListArr, "saved");
-
+let myWatchList = [];
 let movieIDs = [];
 let moviesResultsArr = [];
 let searchHTML = "";
@@ -17,6 +12,10 @@ const movieSearchInput = movieForm.querySelector("#movie-search");
 const movieListEl = document.querySelector(".movie-results__list");
 const watchlistBtn = document.querySelector(".btn--header");
 
+// if nothing is inside the watchlist
+saveWatchListToLocalStorage(myWatchList);
+
+localStorage.setItem("test", JSON.stringify({ test: "my test" }));
 // eventlistner for the search form
 movieForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -25,7 +24,8 @@ movieForm.addEventListener("submit", async (e) => {
     await getMovieInfoWithID(movieKey, movieIDs);
     renderMovies(movieListEl, searchHTML, moviesResultsArr, movieResultsHtml);
 
-    movieWatchListHandler(movieListEl, moviesResultsArr, movieWatchListArr);
+    movieWatchListHandler(movieListEl, moviesResultsArr, myWatchList);
+
     // renderMovies(watchListEl, watchHTML, movieWatchListArr, watchHTML);
   } else {
     console.log("Enter a movie title");
@@ -68,6 +68,7 @@ function addMovieIDtoArray(data) {
 
 // clear input field
 function clearMovieInput() {
+  console.log("clear");
   movieSearchInput.value = "";
 }
 
@@ -86,6 +87,15 @@ function storeMovieResults(data) {
   moviesResultsArr.push(newMovie);
 }
 
+//
+export function updateWatchListButtonEl(event, type) {
+  const text =
+    type === "add"
+      ? `<i class='bx bxs-minus-circle'></i> remove`
+      : `<i class="bx bxs-plus-circle"></i> add to watchlist`;
+  event.target.closest("li").querySelector(".btn--watchlist").innerHTML = text;
+}
+// render movies
 export function renderMovies(el, htmlType, arr, func) {
   for (let movie of arr) {
     htmlType += func(movie);
@@ -93,13 +103,12 @@ export function renderMovies(el, htmlType, arr, func) {
   el.innerHTML = htmlType;
 }
 
+// save array
 export function saveWatchListToLocalStorage(arr) {
-  // save
   localStorage.setItem("watchList", JSON.stringify(arr));
 }
 
+// get array
 export function getWatchListFromLocalStorage() {
   return JSON.parse(localStorage.getItem("watchList"));
 }
-
-// export default renderMovies;

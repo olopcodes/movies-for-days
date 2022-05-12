@@ -7,6 +7,7 @@ let watchHTML = "";
 window.addEventListener("load", (e) => {
   //   on load check if wathclist has movies
   const list = getWatchListFromLocalStorage();
+  console.log(list, "watchlist page");
   if (list.length > 0) {
     renderMovies(watchListEl, watchHTML, list, watchlistHTML);
   }
