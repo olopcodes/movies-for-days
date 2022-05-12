@@ -9,6 +9,7 @@
   gap: 6em;
   align-items: center;
   flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 #watchlist .movie-results__movie {
@@ -47,7 +48,7 @@
 @media screen and (min-width: 630px) {
   #watchlist .movie-results__list {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   #watchlist .movie-results__movie {

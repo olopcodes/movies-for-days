@@ -1,9 +1,11 @@
 import {
-  saveWatchListToLocalStorage,
   getWatchListFromLocalStorage,
   updateWatchListButtonEl,
+  addMovieToWatchList,
+  removeMovieFromWatchList,
 } from "./app.js";
-function movieWatchListHandler(searchEl, moviesSearchedArr, myWatchList) {
+
+function movieWatchListHandler(searchEl, moviesSearchedArr) {
   searchEl.addEventListener("click", (e) => {
     if (e.target.classList.contains("btn--watchlist")) {
       const moviesInWatchList = getWatchListFromLocalStorage();
@@ -16,25 +18,11 @@ function movieWatchListHandler(searchEl, moviesSearchedArr, myWatchList) {
         addMovieToWatchList(moviesSearchedArr, movieId, moviesInWatchList);
         updateWatchListButtonEl(e, "add");
       } else {
-        const myWatchList = getWatchListFromLocalStorage();
-        saveWatchListToLocalStorage(
-          myWatchList.filter((movie) => movie.imdbID !== movieId)
-        );
+        removeMovieFromWatchList(e);
         updateWatchListButtonEl(e, "rem");
       }
     }
   });
-}
-
-function addMovieToWatchList(arr, id, watchList) {
-  const movieInfo = arr.find((movie) => movie.imdbID === id);
-
-  watchList.push({
-    Poster: movieInfo.Poster,
-    imdbID: movieInfo.imdbID,
-    Title: movieInfo.Title,
-  });
-  saveWatchListToLocalStorage(watchList);
 }
 
 export default movieWatchListHandler;

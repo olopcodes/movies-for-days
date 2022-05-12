@@ -3,7 +3,7 @@ import Movie from "./Movie.js";
 import { movieResultsHtml, watchlistHTML } from "./html.js";
 import movieWatchListHandler from "./watchlistHandler.js";
 
-let myWatchList = [];
+let myWatchList = getWatchListFromLocalStorage();
 let movieIDs = [];
 let moviesResultsArr = [];
 let searchHTML = "";
@@ -13,9 +13,16 @@ const movieListEl = document.querySelector(".movie-results__list");
 const watchlistBtn = document.querySelector(".btn--header");
 
 // if nothing is inside the watchlist
-saveWatchListToLocalStorage(myWatchList);
+if (myWatchList === null) {
+  myWatchList = saveWatchListToLocalStorage([]);
+} else {
+  myWatchList = getWatchListFromLocalStorage();
+}
 
-localStorage.setItem("test", JSON.stringify({ test: "my test" }));
+console.log(myWatchList);
+// saveWatchListToLocalStorage(myWatchList);
+
+// localStorage.setItem("test", JSON.stringify({ test: "my test" }));
 // eventlistner for the search form
 movieForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -68,7 +75,6 @@ function addMovieIDtoArray(data) {
 
 // clear input field
 function clearMovieInput() {
-  console.log("clear");
   movieSearchInput.value = "";
 }
 
@@ -111,4 +117,22 @@ export function saveWatchListToLocalStorage(arr) {
 // get array
 export function getWatchListFromLocalStorage() {
   return JSON.parse(localStorage.getItem("watchList"));
+}
+
+export function addMovieToWatchList(arr, id, watchList) {
+  const movieInfo = arr.find((movie) => movie.imdbID === id);
+
+  watchList.push({
+    Poster: movieInfo.Poster,
+    imdbID: movieInfo.imdbID,
+    Title: movieInfo.Title,
+  });
+  saveWatchListToLocalStorage(watchList);
+}
+
+export function removeMovieFromWatchList(e) {
+  const myWatchList = getWatchListFromLocalStorage();
+  saveWatchListToLocalStorage(
+    myWatchList.filter((movie) => movie.imdbID !== movieId)
+  );
 }
