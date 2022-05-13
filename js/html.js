@@ -1,4 +1,7 @@
+import { isMovieInWatchList } from "./app.js";
+
 export function movieResultsHtml(movieObj) {
+  const btnText = isMovieInWatchList(movieObj);
   const { imdbID, Title, Poster, Runtime, Genre, imdbRating, Plot } = movieObj;
   return `
       <li class="movie-results__movie" data-id="${imdbID}">
@@ -19,7 +22,7 @@ export function movieResultsHtml(movieObj) {
           <p>${Runtime}</p>
           <p>${Genre}</p>
           <button class="btn--watchlist">
-          <i class="bx bxs-plus-circle"></i> add to watchlist
+          ${btnText}
           </button>
         </div>
         <p class="movie-results__plot">

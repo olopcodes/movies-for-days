@@ -1,5 +1,9 @@
 import { watchlistHTML } from "./html.js";
-import { renderMovies, getWatchListFromLocalStorage } from "./app.js";
+import {
+  renderMovies,
+  getWatchListFromLocalStorage,
+  removeMovieFromWatchList,
+} from "./app.js";
 import movieWatchListHandler from "./watchlistHandler.js";
 
 const watchListEl = document.querySelector("#watchlist .movie-results__list");
@@ -16,6 +20,9 @@ window.addEventListener("load", (e) => {
 
 watchListEl.addEventListener("click", (e) => {
   if (e.target.classList.contains("btn--watchlist")) {
-    removeMovieFRomWatchList(e);
+    const movieId = e.target.closest("li").dataset.id;
+    removeMovieFromWatchList(e, movieId);
+    const list = getWatchListFromLocalStorage();
+    renderMovies(watchListEl, watchHTML, list, watchlistHTML);
   }
 });

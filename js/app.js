@@ -119,6 +119,7 @@ export function getWatchListFromLocalStorage() {
   return JSON.parse(localStorage.getItem("watchList"));
 }
 
+// add to watchlist
 export function addMovieToWatchList(arr, id, watchList) {
   const movieInfo = arr.find((movie) => movie.imdbID === id);
 
@@ -130,9 +131,21 @@ export function addMovieToWatchList(arr, id, watchList) {
   saveWatchListToLocalStorage(watchList);
 }
 
-export function removeMovieFromWatchList(e) {
+// remove from watchlist
+export function removeMovieFromWatchList(e, movieId) {
   const myWatchList = getWatchListFromLocalStorage();
   saveWatchListToLocalStorage(
     myWatchList.filter((movie) => movie.imdbID !== movieId)
   );
+}
+
+// check if movie already in watchlist
+export function isMovieInWatchList(movie) {
+  const watchlist = getWatchListFromLocalStorage();
+  const index = watchlist.findIndex((w) => w.imdbID === movie.imdbID);
+  if (index === -1) {
+    return `<i class="bx bxs-plus-circle"></i> add to watchlist`;
+  } else {
+    return `<i class='bx bxs-minus-circle'></i> remove`;
+  }
 }

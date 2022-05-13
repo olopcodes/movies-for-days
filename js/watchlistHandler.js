@@ -18,7 +18,7 @@ function movieWatchListHandler(searchEl, moviesSearchedArr) {
         addMovieToWatchList(moviesSearchedArr, movieId, moviesInWatchList);
         updateWatchListButtonEl(e, "add");
       } else {
-        removeMovieFromWatchList(e);
+        removeMovieFromWatchList(e, movieId);
         updateWatchListButtonEl(e, "rem");
       }
     }
